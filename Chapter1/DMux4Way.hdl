@@ -1,0 +1,17 @@
+/* DMux回路
+難しかったのでネットを見て作成*/
+CHIP DMux4Way {
+IN sel[2], in;
+OUT a, b, c, d;
+PARTS:
+Nand(a=sel[0], b=sel[0], out=notsel0);
+Nand(a=sel[1], b=sel[1], out=notsel1);
+
+And(a=notsel1, b=in, out=ab);
+And(a=notsel0, b=ab, out=a);
+And(a=sel[0], b=ab, out=b);
+
+And(a=sel[1], b=in, out=cd);
+And(a=notsel0, b=cd, out=c);
+And(a=sel[0], b=cd, out=d);
+}

@@ -1,0 +1,47 @@
+/* Mux回路
+難しかったのでネットを見て作成*/
+CHIP Mux8Way16{
+IN a[16], b[16], c[16], d[16],e[16], f[16], g[16], h[16], sel[3];
+OUT out[16];
+PARTS:
+Not(in=sel[0], out=notsel0);
+Not(in=sel[1], out=notsel1);
+Not(in=sel[2], out=notsel2);
+To16(in=sel[0], out=sel016);
+To16(in=sel[1], out=sel116);
+To16(in=sel[2], out=sel216);
+To16(in=notsel0, out=notsel016);
+To16(in=notsel1, out=notsel116);
+To16(in=notsel2, out=notsel216);
+And16(a=a, b=notsel016, out=a1);
+And16(a=a1, b=notsel116, out=a2);
+And16(a=a2, b=notsel216, out=aout);
+And16(a=b, b=sel016, out=b1);
+And16(a=b1, b=notsel116, out=b2);
+And16(a=b2, b=notsel216, out=bout);
+And16(a=c, b=notsel016, out=c1);
+And16(a=c1, b=sel116, out=c2);
+And16(a=c2, b=notsel216, out=cout);
+And16(a=d, b=sel016, out=d1);
+And16(a=d1, b=sel116, out=d2);
+And16(a=d2, b=notsel216, out=dout);
+And16(a=e, b=notsel016, out=e1);
+And16(a=e1, b=notsel116, out=e2);
+And16(a=e2, b=sel216, out=eout);
+And16(a=f, b=sel016, out=f1);
+And16(a=f1, b=notsel116, out=f2);
+And16(a=f2, b=sel216, out=fout);
+And16(a=g, b=notsel016, out=g1);
+And16(a=g1, b=sel116, out=g2);
+And16(a=g2, b=sel216, out=gout);
+And16(a=h, b=sel016, out=h1);
+And16(a=h1, b=sel116, out=h2);
+And16(a=h2, b=sel216, out=hout);
+Or16(a=aout, b=bout, out=about);
+Or16(a=cout, b=dout, out=cdout);
+Or16(a=eout, b=fout, out=efout);
+Or16(a=gout, b=hout, out=ghout);
+Or16(a=about, b=cdout, out=abcdout);
+Or16(a=efout, b=ghout, out=efghout);
+Or16(a=abcdout, b=efghout, out=out);
+}

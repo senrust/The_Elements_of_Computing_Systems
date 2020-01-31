@@ -1,0 +1,26 @@
+/* DMux回路
+難しかったのでネットを見て作成*/
+CHIP DMux8Way {
+IN sel[3], in;
+OUT a, b, c, d, e, f, g, h;
+PARTS:
+Nand(a=sel[0], b=sel[0], out=notsel0);
+Nand(a=sel[1], b=sel[1], out=notsel1);
+Nand(a=sel[2], b=sel[2], out=notsel2);
+
+And(a=notsel2, b=in, out=abcd);
+And(a=notsel1, b=abcd, out=ab);
+And(a=sel[1], b=abcd, out=cd);
+And(a=notsel0, b=ab, out=a);
+And(a=sel[0], b=ab, out=b);
+And(a=notsel0, b=cd, out=c);
+And(a=sel[0], b=cd, out=d);
+
+And(a=sel[2], b=in, out=efgh);
+And(a=notsel1, b=efgh, out=ef);
+And(a=sel[1], b=efgh, out=gh);
+And(a=notsel0, b=ef, out=e);
+And(a=sel[0], b=ef, out=f);
+And(a=notsel0, b=gh, out=g);
+And(a=sel[0], b=gh, out=h);
+}

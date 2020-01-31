@@ -1,0 +1,10 @@
+/* DMux回路
+難しかったのでネットを見て作成*/
+CHIP DMux {
+IN sel, in;
+OUT a, b;
+PARTS:
+Nand(a=sel, b=sel, out=notsel);
+And(a=notsel, b=in, out=a);
+And(a=sel, b=in, out=b);
+}

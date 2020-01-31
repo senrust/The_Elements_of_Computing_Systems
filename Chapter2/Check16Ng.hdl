@@ -1,0 +1,7 @@
+/* Not回路 */
+CHIP Check16Ng{
+IN in[16], true;
+OUT out;
+PARTS:
+And(a=in[15],b=true ,out=out);
+}

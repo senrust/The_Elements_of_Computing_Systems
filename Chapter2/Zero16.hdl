@@ -1,0 +1,7 @@
+/* Not回路 */
+CHIP Zero16{
+IN in[16], false[16];
+OUT out[16];
+PARTS:
+And16(a=in, b=false, out=out);
+}
